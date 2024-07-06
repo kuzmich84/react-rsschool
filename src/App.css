@@ -1,3 +1,7 @@
+html {
+  background: url(./assets/bg.jpg);
+}
+
 #root {
   padding: 2rem;
 }
@@ -41,4 +45,8 @@
 
 .read-the-docs {
   color: #888;
+}
+
+h1 {
+  color: aliceblue;
 }

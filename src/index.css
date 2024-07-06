@@ -109,6 +109,8 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   width: 270px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
 }
 
 .movie-title {
@@ -123,6 +125,7 @@ button:focus-visible {
 
 .movie-info {
   margin-top: auto;
+  padding: 5px;
 }
 
 .movie-image {
@@ -132,4 +135,10 @@ button:focus-visible {
 .movie-image img {
   height: 100%;
   width: auto;
+}
+
+.load-more-button {
+  width: 10%;
+  margin: 0 auto;
+  display: block;
 }
