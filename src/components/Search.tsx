@@ -13,7 +13,7 @@ class Search extends React.Component<SearchProps, SearchState> {
     search: localStorage.getItem('search') || '',
   };
 
-  handleChange = (event: ChangeEvent) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({ search: event.target.value });
   };
 
