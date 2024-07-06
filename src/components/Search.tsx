@@ -1,6 +1,16 @@
 import React, { ChangeEvent } from 'react';
 
-class Search extends React.Component {
+interface SearchState {
+  search: string;
+}
+
+interface SearchProps {
+  searchMovies: (search: string) => void;
+}
+class Search extends React.Component<SearchProps, SearchState> {
+  constructor(props: { searchMovies: void }) {
+    super(props);
+  }
   state = {
     search: localStorage.getItem('search') || '',
   };
@@ -10,7 +20,12 @@ class Search extends React.Component {
   };
 
   handleClick = () => {
-    localStorage.setItem('search', this.state.search);
+    if (this.state.search) {
+      localStorage.setItem('search', this.state.search);
+      this.props.searchMovies(this.state.search);
+    } else {
+      this.props.searchMovies('movie');
+    }
   };
 
   render() {
