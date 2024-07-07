@@ -13,7 +13,7 @@ class BoundaryButtonTest extends React.Component {
     }
     return (
       <button className="boundary-button" onClick={this.handleClick}>
-        Error Bounadary Test
+        Error Boundary Test
       </button>
     );
   }
