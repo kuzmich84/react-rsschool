@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import Search from './components/Search';
+
 import Header from './components/Header/Header';
 import MovieList from './components/MovieList/MovieList';
-import Preloader from './components/Preloader';
 import LoadMoreButton from './components/LoadMoreButton/LoadMoreButton';
+import Preloader from './components/Preloader/Preloader';
+import Search from './components/Search/Search';
 
 const API_KEY = '61ba9e64';
 class App extends React.Component {
