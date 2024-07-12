@@ -1,5 +1,5 @@
 import React from 'react';
-import BoundaryButtonTest from './BoundaryButtonTest';
+import BoundaryButtonTest from './ui/BoundaryButtonTest';
 
 class Header extends React.Component {
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Movie, { MovieProps } from './Movie';
+import Movie, { MovieProps } from './Movie/Movie';
 
 export interface MovieListProps {
   movies: MovieProps[];
