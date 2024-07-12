@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Search from './components/Search';
 import Header from './components/Header';
-import MovieList from './components/MovieList';
+import MovieList from './components/MovieList/MovieList';
 import LoadMore from './components/LoadMore';
 import Preloader from './components/Preloader';
 

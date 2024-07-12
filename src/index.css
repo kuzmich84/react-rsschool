@@ -95,14 +95,6 @@ button:focus-visible {
   background-color: #7b1fa2;
 }
 
-.movie-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  gap: 20px;
-  justify-content: center;
-}
-
 .load-more-button {
   width: 10%;
   margin: 0 auto;
