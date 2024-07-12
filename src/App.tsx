@@ -3,8 +3,8 @@ import './App.css';
 import Search from './components/Search';
 import Header from './components/Header/Header';
 import MovieList from './components/MovieList/MovieList';
-import LoadMore from './components/LoadMore';
 import Preloader from './components/Preloader';
+import LoadMoreButton from './components/LoadMoreButton/LoadMoreButton';
 
 const API_KEY = '61ba9e64';
 class App extends React.Component {
@@ -67,7 +67,9 @@ class App extends React.Component {
         <Header />
         <Search searchMovies={this.searchMovies} setPage={this.setPage} />
         {this.state.isLoading ? <Preloader /> : <MovieList movies={this.state.movies} />}
-        {this.state.isLoadMore && <LoadMore loadMore={this.loadMore} page={this.state.page} />}
+        {this.state.isLoadMore && (
+          <LoadMoreButton loadMore={this.loadMore} page={this.state.page} />
+        )}
       </div>
     );
   }
