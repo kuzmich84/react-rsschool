@@ -128,12 +128,6 @@ button:focus-visible {
   }
 }
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .boundary-button {
   background: #b71c1c;
   color: #fff;
