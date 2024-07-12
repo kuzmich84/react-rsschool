@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import styles from './Search.module.css';
 
 interface SearchProps {
@@ -8,20 +8,20 @@ interface SearchProps {
 
 const initState = localStorage.getItem('search') || '';
 
-function Search(props: SearchProps) {
+function Search({ searchMovies, setPage }: SearchProps) {
   const [search, setSearch] = useState<string>(initState);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (search) {
       localStorage.setItem('search', search);
-      props.searchMovies(search, 1);
-      props.setPage(1, false);
+      searchMovies(search, 1);
+      setPage(1, false);
     } else {
-      props.searchMovies('movie', 1);
-      props.setPage(1, true);
+      searchMovies('movie', 1);
+      setPage(1, true);
       localStorage.removeItem('search');
     }
-  };
+  }, [search, searchMovies, setPage]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
