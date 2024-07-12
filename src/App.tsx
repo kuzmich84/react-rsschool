@@ -22,7 +22,7 @@ function App() {
   async function searchMovies(search: string, page = 1) {
     setIsLoading(true);
 
-    if (localStorage.getItem('search')) {
+    if (movies.localSearch) {
       setIsLoadMore(false);
     }
     try {

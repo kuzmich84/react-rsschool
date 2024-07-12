@@ -1,25 +1,21 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import styles from './Search.module.css';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 interface SearchProps {
   searchMovies: (search: string, page: number) => void;
   setPage: (page: number, isLoadMore: boolean) => void;
 }
-
-const initState = localStorage.getItem('search') || '';
-
 function Search({ searchMovies, setPage }: SearchProps) {
-  const [search, setSearch] = useState<string>(initState);
+  const [search, setSearch] = useLocalStorage('search');
 
   const handleClick = useCallback(() => {
     if (search) {
-      localStorage.setItem('search', search);
       searchMovies(search, 1);
       setPage(1, false);
     } else {
       searchMovies('movie', 1);
       setPage(1, true);
-      localStorage.removeItem('search');
     }
   }, [search, searchMovies, setPage]);
 
