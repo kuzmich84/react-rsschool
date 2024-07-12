@@ -1,4 +1,3 @@
-import React from 'react';
 import Movie, { MovieProps } from '../Movie/Movie';
 import styles from './MovieList.module.css';
 
