@@ -114,3 +114,19 @@ button:focus-visible {
   background: #b71c1c;
   color: #fff;
 }
+
+.main-content {
+  display: flex;
+}
+
+.movie-content {
+  position: relative;
+}
+
+.active-card {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}

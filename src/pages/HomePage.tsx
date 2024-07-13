@@ -4,13 +4,15 @@ import Header from '../components/Header/Header';
 import Search from '../components/Search/Search';
 import Preloader from '../components/Preloader/Preloader';
 import MovieList from '../components/MovieList/MovieList';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams, useSearchParams } from 'react-router-dom';
 import Pagination from '../components/ui/Pagination';
+import CardDetail from '../components/CardDetail/CardDetail';
 
 const API_KEY = '61ba9e64';
 
 export default function HomePage() {
   const { pageId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const initState = {
     movies: [],
     localSearch: localStorage.getItem('search') || 'movie',
@@ -68,11 +70,21 @@ export default function HomePage() {
     <div className="container">
       <Header />
       <Search setLocalSearch={setSearch} />
-      {isLoading ? <Preloader /> : <MovieList movies={movies.movies} />}
 
-      {!isLoading && (
-        <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
-      )}
+      <div className="main-content">
+        <div className="movie-content">
+          {isLoading ? <Preloader /> : <MovieList movies={movies.movies} />}
+          {!isLoading && (
+            <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
+          )}
+          <div
+            className={searchParams.get('details') ? 'active-card' : ''}
+            onClick={() => setSearchParams({ details: '' })}
+          ></div>
+        </div>
+        {searchParams.get('details') && <CardDetail />}
+        <Outlet />
+      </div>
     </div>
   );
 }
