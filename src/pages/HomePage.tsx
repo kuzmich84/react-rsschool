@@ -4,7 +4,8 @@ import Header from '../components/Header/Header';
 import Search from '../components/Search/Search';
 import Preloader from '../components/Preloader/Preloader';
 import MovieList from '../components/MovieList/MovieList';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Pagination from '../components/ui/Pagination';
 
 const API_KEY = '61ba9e64';
 
@@ -21,14 +22,13 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const countPage = Math.ceil(movies.totalResult / 10);
 
-  console.log(pageId);
-
   async function searchMovies(search: string, page: number) {
     if (!page) {
       page = 1;
     }
 
     try {
+      setIsLoading(true);
       const response = await fetch(
         `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}&page=${page}`,
       );
@@ -70,19 +70,9 @@ export default function HomePage() {
       <Search setLocalSearch={setSearch} />
       {isLoading ? <Preloader /> : <MovieList movies={movies.movies} />}
 
-      <ul className="pages">
-        {pages.map((page, index) => (
-          <li key={index}>
-            <Link
-              to={`/page/${page}`}
-              className={movies.currentPage === page ? 'page active_page' : 'page'}
-              onClick={() => setPage(page)}
-            >
-              {page}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {!isLoading && (
+        <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
+      )}
     </div>
   );
 }
