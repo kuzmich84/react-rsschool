@@ -14,6 +14,6 @@ module.exports = {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    'eslint-disable react-hooks/exhaustive-deps': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };

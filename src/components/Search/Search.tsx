@@ -1,23 +1,24 @@
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent } from 'react';
 import styles from './Search.module.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
 
 interface SearchProps {
-  searchMovies: (search: string, page: number) => void;
-  setPage: (page: number, isLoadMore: boolean) => void;
+  setLocalSearch: (search: string) => void;
 }
-function Search({ searchMovies, setPage }: SearchProps) {
+function Search({ setLocalSearch }: SearchProps) {
   const [search, setSearch] = useLocalStorage('search');
+  const navigate = useNavigate();
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (search) {
-      searchMovies(search, 1);
-      setPage(1, false);
+      setLocalSearch(search);
+      navigate('/page/1');
     } else {
-      searchMovies('movie', 1);
-      setPage(1, true);
+      setLocalSearch('movie');
+      navigate('/page/1');
     }
-  }, [search, searchMovies, setPage]);
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -30,7 +31,7 @@ function Search({ searchMovies, setPage }: SearchProps) {
         value={search}
         onChange={handleChange}
       />
-      <button className={styles.searchbutton} onClick={handleClick}>
+      <button className={styles.search_button} onClick={handleClick}>
         Search
       </button>
     </div>

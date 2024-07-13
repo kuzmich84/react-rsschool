@@ -55,3 +55,32 @@ h2 {
   color: aliceblue;
   font-size: 26px;
 }
+
+.pages {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.page {
+  border: 1px solid white;
+  color: white;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.pages li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.active_page {
+  background-color: #4a148c;
+  font-weight: bold;
+  border-width: 2px;
+}
