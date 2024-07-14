@@ -42,6 +42,8 @@ export default function CardDetail() {
       });
   }, [detailId]);
 
+  console.log(card);
+
   const handlerClick = () => {
     setSearchParams({ details: '' });
   };
