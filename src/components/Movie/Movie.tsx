@@ -1,5 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Movie.module.css';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { addMovie, deleteMovie } from '../../redux/slices/selectMoviesSlice';
 
 export interface MovieProps {
   imdbID: string;
@@ -7,27 +9,38 @@ export interface MovieProps {
   Year: string;
   Type?: string;
   Poster: string;
+  isChecked: boolean;
 }
 
 function Movie(props: MovieProps) {
-  const location = useLocation();
+  const { Title, Poster, imdbID, Year, isChecked } = props;
 
-  const { Title: title, Poster: poster, imdbID: id, Year: year } = props;
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const handleChange = () => {
+    if (!isChecked) {
+      dispatch(addMovie({ Title, Poster, imdbID, Year }));
+    } else {
+      dispatch(deleteMovie(imdbID));
+    }
+  };
+
   return (
-    <li className={styles.movie_card} key={id}>
+    <li className={styles.movie_card} key={imdbID}>
       <div className={styles.movie_image}>
-        <img src={poster} alt={title} />
+        <img src={Poster} alt={Title} />
       </div>
 
       <div className={styles.movie_info}>
-        <p className={styles.movie_title}>{title}</p>
-        <p className={styles.movie_year}>{year}</p>
+        <p className={styles.movie_title}>{Title}</p>
+        <p className={styles.movie_year}>{Year}</p>
       </div>
       <div className={styles.movie_footer}>
-        <Link className={styles.movie_link} to={`${location.pathname}?details=${id}`}>
+        <Link className={styles.movie_link} to={`${location.pathname}?details=${imdbID}`}>
           Show card
         </Link>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={handleChange} checked={isChecked} />
       </div>
     </li>
   );

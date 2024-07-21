@@ -35,7 +35,6 @@ export default function HomePage() {
 
   const setPage = (page: number) => {
     setMovies({ ...movies, currentPage: page });
-    console.log('currentPage:', page);
   };
 
   const setSearch = (search: string) => {
@@ -44,10 +43,6 @@ export default function HomePage() {
 
   const pages: number[] = [];
   createPagesPagination(pages, countPage, movies.currentPage);
-
-  if (!isLoading) {
-    console.log(data?.Search);
-  }
 
   return (
     <div className="container">

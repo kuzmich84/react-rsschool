@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { MovieProps } from '../../components/Movie/Movie';
 
 interface selectMovies {
-  selectMovies: MovieProps[];
+  selectedMovies: MovieProps[];
 }
 
 const initialState: MovieProps[] = [];
@@ -12,14 +12,14 @@ export const selectedMoviesSlice = createSlice({
   initialState,
   reducers: {
     addMovie: (state, action) => {
-      state.push = action.payload;
+      state.push(action.payload);
     },
     deleteMovie: (state, action) => {
-      state.filter((movie: MovieProps) => movie.imdbID !== action.payload);
+      return state.filter((movie) => movie.imdbID !== action.payload);
     },
   },
 });
 
 export const { addMovie, deleteMovie } = selectedMoviesSlice.actions;
-export const selectSelectedMovies = (state: selectMovies) => state.selectMovies;
+export const selectSelectedMovies = (state: selectMovies) => state.selectedMovies;
 export default selectedMoviesSlice.reducer;
