@@ -17,9 +17,12 @@ export const selectedMoviesSlice = createSlice({
     deleteMovie: (state, action) => {
       return state.filter((movie) => movie.imdbID !== action.payload);
     },
+    deleteAll: () => {
+      return initialState;
+    },
   },
 });
 
-export const { addMovie, deleteMovie } = selectedMoviesSlice.actions;
+export const { addMovie, deleteMovie, deleteAll } = selectedMoviesSlice.actions;
 export const selectSelectedMovies = (state: selectMovies) => state.selectedMovies;
 export default selectedMoviesSlice.reducer;

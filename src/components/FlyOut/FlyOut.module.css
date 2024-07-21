@@ -1,0 +1,27 @@
+.content {
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content p {
+  font-size: 18px;
+}
+
+.content span {
+  font-weight: bold;
+}
+
+.flyout_button {
+  background-color: #4a148c;
+  border: #4a148c;
+  color: #fff;
+  min-width: 200px;
+}
+
+.flyout_button:hover {
+  background-color: #7b1fa2;
+}

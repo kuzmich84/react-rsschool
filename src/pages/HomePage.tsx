@@ -8,8 +8,10 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import Pagination from '../components/ui/Pagination';
 import CardDetail from '../components/CardDetail/CardDetail';
 import { moviesApi } from '../services/movies';
-import { useAppDispatch } from '../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 import { fetchMovies } from '../redux/slices/moviesSlice';
+import FlyOut from '../components/FlyOut/FlyOut';
+import { selectSelectedMovies } from '../redux/slices/selectMoviesSlice';
 
 export default function HomePage() {
   const { pageId = 1 } = useParams();
@@ -44,6 +46,8 @@ export default function HomePage() {
   const pages: number[] = [];
   createPagesPagination(pages, countPage, movies.currentPage);
 
+  const selectedMovies = useAppSelector(selectSelectedMovies);
+
   return (
     <div className="container">
       <Header />
@@ -65,6 +69,7 @@ export default function HomePage() {
             className={searchParams.get('details') ? 'active-card' : ''}
             onClick={() => setSearchParams({ details: '' })}
           ></div>
+          {selectedMovies.length ? <FlyOut count={selectedMovies.length} /> : null}
         </div>
         {searchParams.get('details') && <CardDetail />}
       </div>
