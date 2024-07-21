@@ -15,16 +15,20 @@ function Movie(props: MovieProps) {
   const { Title: title, Poster: poster, imdbID: id, Year: year } = props;
   return (
     <li className={styles.movie_card} key={id}>
-      <Link to={`${location.pathname}?details=${id}`}>
-        <div className={styles.movie_image}>
-          <img src={poster} alt={title} />
-        </div>
+      <div className={styles.movie_image}>
+        <img src={poster} alt={title} />
+      </div>
 
-        <div className={styles.movie_info}>
-          <p className={styles.movie_title}>{title}</p>
-          <p className={styles.movie_year}>{year}</p>
-        </div>
-      </Link>
+      <div className={styles.movie_info}>
+        <p className={styles.movie_title}>{title}</p>
+        <p className={styles.movie_year}>{year}</p>
+      </div>
+      <div className={styles.movie_footer}>
+        <Link className={styles.movie_link} to={`${location.pathname}?details=${id}`}>
+          Show card
+        </Link>
+        <input type="checkbox" />
+      </div>
     </li>
   );
 }

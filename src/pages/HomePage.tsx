@@ -4,55 +4,34 @@ import Header from '../components/Header/Header';
 import Search from '../components/Search/Search';
 import Preloader from '../components/Preloader/Preloader';
 import MovieList from '../components/MovieList/MovieList';
-import { Outlet, useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Pagination from '../components/ui/Pagination';
 import CardDetail from '../components/CardDetail/CardDetail';
-
-const API_KEY = '61ba9e64';
+import { moviesApi } from '../services/movies';
+import { useAppDispatch } from '../hooks/redux-hooks';
+import { fetchMovies } from '../redux/slices/moviesSlice';
 
 export default function HomePage() {
-  const { pageId } = useParams();
+  const { pageId = 1 } = useParams();
+  const { data, isLoading, error } = moviesApi.useGetMoviesQuery({
+    search: 'movie',
+    page: +pageId,
+  });
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchMovies(data?.Search));
+  }, [data]);
+
   const [searchParams, setSearchParams] = useSearchParams();
+
   const initState = {
-    movies: [],
     localSearch: localStorage.getItem('search') || 'movie',
     currentPage: +pageId! || 1,
     totalResult: 0,
   };
 
   const [movies, setMovies] = useState(initState);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const countPage = Math.ceil(movies.totalResult / 10);
-
-  async function searchMovies(search: string, page: number) {
-    if (!page) {
-      page = 1;
-    }
-
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}&page=${page}`,
-      );
-      const data = await response.json();
-      setMovies({
-        ...movies,
-        movies: data.Search,
-        totalResult: data.totalResults,
-        localSearch: search,
-        currentPage: page,
-      });
-
-      setIsLoading(false);
-    } catch (err) {
-      console.error(err);
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    searchMovies(movies.localSearch, +pageId!);
-  }, [movies.localSearch, movies.currentPage, pageId]);
+  const countPage = Math.ceil(data?.totalResults / 10);
 
   const setPage = (page: number) => {
     setMovies({ ...movies, currentPage: page });
@@ -66,6 +45,10 @@ export default function HomePage() {
   const pages: number[] = [];
   createPagesPagination(pages, countPage, movies.currentPage);
 
+  if (!isLoading) {
+    console.log(data?.Search);
+  }
+
   return (
     <div className="container">
       <Header />
@@ -73,7 +56,13 @@ export default function HomePage() {
 
       <div className="main-content">
         <div className="movie-content">
-          {isLoading ? <Preloader /> : <MovieList movies={movies.movies} />}
+          {error ? (
+            <p>Oh no, there was an error</p>
+          ) : isLoading ? (
+            <Preloader />
+          ) : (
+            <MovieList movies={data?.Search} />
+          )}
           {!isLoading && (
             <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
           )}
@@ -83,7 +72,6 @@ export default function HomePage() {
           ></div>
         </div>
         {searchParams.get('details') && <CardDetail />}
-        <Outlet />
       </div>
     </div>
   );
