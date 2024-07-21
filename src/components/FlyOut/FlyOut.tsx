@@ -1,5 +1,6 @@
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { deleteAll } from '../../redux/slices/selectMoviesSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { deleteAll, selectSelectedMovies } from '../../redux/slices/selectMoviesSlice';
+import ExportCSV from '../../utils/exportCSV';
 import styles from './FlyOut.module.css';
 
 export interface flyOutProps {
@@ -9,6 +10,7 @@ export interface flyOutProps {
 export default function FlyOut(props: flyOutProps) {
   const { count } = props;
   const dispatch = useAppDispatch();
+  const selectedMovies = useAppSelector(selectSelectedMovies);
 
   const handleUnselectClick = () => {
     dispatch(deleteAll());
@@ -22,9 +24,12 @@ export default function FlyOut(props: flyOutProps) {
       <button className={styles.flyout_button} type="button" onClick={handleUnselectClick}>
         Unselect All
       </button>
-      <button className={styles.flyout_button} type="button">
-        Download
-      </button>
+
+      <ExportCSV
+        className={styles.flyout_button}
+        data={selectedMovies}
+        fileName={`${count}_movies`}
+      />
     </div>
   );
 }
