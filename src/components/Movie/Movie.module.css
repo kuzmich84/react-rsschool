@@ -1,0 +1,33 @@
+.movie_card {
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.movie_title {
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+
+.movie_year {
+  margin-top: 0;
+  font-style: italic;
+}
+
+.movie_info {
+  margin-top: auto;
+  padding: 5px;
+}
+
+.movie_image {
+  height: 400px;
+}
+
+.movie_image img {
+  height: 100%;
+  width: auto;
+}
