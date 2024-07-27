@@ -7,7 +7,7 @@ interface moviesState {
   };
 }
 
-const initialState = {
+export const initialState = {
   movies: [],
 };
 

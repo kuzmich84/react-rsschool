@@ -5,7 +5,7 @@ interface selectMovies {
   selectedMovies: MovieProps[];
 }
 
-const initialState: MovieProps[] = [];
+export const initialState: MovieProps[] = [];
 
 export const selectedMoviesSlice = createSlice({
   name: 'selectMovies',

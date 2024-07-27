@@ -1,20 +1,21 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Movie from './Movie';
-import { mockMovie } from '../../mocks/mockMovie';
+
+import { renderWithProviders } from '../../utils/test-utils';
+import { mockMovieWithIsCheck } from '../../mocks/mockMovieWithIsCheck';
 
 describe('Testing Movie component', () => {
   test('should render right movie component', () => {
-    render(
+    renderWithProviders(
       <Movie
-        imdbID={mockMovie.imdbID}
-        Title={mockMovie.Title}
-        Year={mockMovie.Year}
-        Poster={mockMovie.Poster}
+        imdbID={mockMovieWithIsCheck.imdbID}
+        Title={mockMovieWithIsCheck.Title}
+        Year={mockMovieWithIsCheck.Year}
+        Poster={mockMovieWithIsCheck.Poster}
+        isChecked={mockMovieWithIsCheck.isChecked}
       />,
-      { wrapper: BrowserRouter },
     );
 
     expect(screen.getByRole('img', { name: 'The Lego Movie' })).toBeInTheDocument();

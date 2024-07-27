@@ -55,13 +55,7 @@ export default function HomePage() {
 
       <div className="main-content">
         <div className="movie-content">
-          {error ? (
-            <p>Oh no, there was an error</p>
-          ) : isLoading ? (
-            <Preloader />
-          ) : (
-            <MovieList movies={data?.Search} />
-          )}
+          {error ? <p>Oh no, there was an error</p> : isLoading ? <Preloader /> : <MovieList />}
           {!isLoading && (
             <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
           )}

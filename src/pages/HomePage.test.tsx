@@ -1,12 +1,11 @@
-import { render } from '@testing-library/react';
 import { describe, test } from 'vitest';
 import HomePage from './HomePage';
-import { BrowserRouter } from 'react-router-dom';
 
 import '@testing-library/jest-dom';
+import { renderWithProviders } from '../utils/test-utils';
 
 describe('Testing Home Page', () => {
-  test('should renders home component', () => {
-    render(<HomePage />, { wrapper: BrowserRouter });
+  test('should renders home component', async () => {
+    renderWithProviders(<HomePage />);
   });
 });

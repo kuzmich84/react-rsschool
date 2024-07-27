@@ -1,14 +1,11 @@
 import { useAppSelector } from '../../hooks/redux-hooks';
+import { selectMovies } from '../../redux/slices/moviesSlice';
 import { selectSelectedMovies } from '../../redux/slices/selectMoviesSlice';
-import Movie, { MovieProps } from '../Movie/Movie';
+import Movie from '../Movie/Movie';
 import styles from './MovieList.module.css';
 
-export interface MovieListProps {
-  movies: MovieProps[];
-}
-
-function MovieList(props: MovieListProps) {
-  const { movies = [] } = props;
+function MovieList() {
+  const movies = useAppSelector(selectMovies) ?? [];
   const idSelectedList = useAppSelector(selectSelectedMovies).map((movie) => movie.imdbID);
   const modifedMovies = movies.map((movie) => ({
     ...movie,

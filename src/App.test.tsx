@@ -1,13 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, test } from 'vitest';
-import { BrowserRouter } from 'react-router-dom';
 
 import '@testing-library/jest-dom';
 import App from './App';
 
+import { renderWithProviders } from './utils/test-utils';
+
 describe('Testing App', () => {
   test('should renders App component', () => {
-    render(<App />, { wrapper: BrowserRouter });
+    renderWithProviders(<App />);
+
     expect(screen.getByText('Movie Search')).toBeInTheDocument();
   });
 });
