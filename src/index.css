@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -110,9 +114,17 @@ button:focus-visible {
   }
 }
 
-.boundary-button {
+.dark.boundary-button {
   background: #b71c1c;
   color: #fff;
+  margin-right: 15px;
+}
+
+.light.boundary-button {
+  background: #f0f0f0;
+  color: #000;
+  margin-right: 15px;
+  border: 1px solid #000;
 }
 
 .main-content {

@@ -1,9 +1,9 @@
-html {
+.dark.app {
   background: url(./assets/bg.jpg);
 }
 
-#root {
-  padding: 2rem;
+.light.app {
+  background: none;
 }
 
 .container {
@@ -75,6 +75,11 @@ h2 {
   cursor: pointer;
 }
 
+.light.page {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
 .pages li:not(:last-child) {
   margin-right: 10px;
 }
@@ -83,4 +88,9 @@ h2 {
   background-color: #4a148c;
   font-weight: bold;
   border-width: 2px;
+}
+
+.light.page.active_page {
+  background-color: #4a148c;
+  color: #fff;
 }

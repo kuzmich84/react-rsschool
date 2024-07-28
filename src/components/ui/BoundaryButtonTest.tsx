@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import ThemeContext from '../../context/themeContext';
 
 export function BoundaryButtonTest() {
   const [isError, setIsError] = useState<boolean>(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleClick = () => {
     setIsError(!isError);
@@ -11,7 +13,7 @@ export function BoundaryButtonTest() {
     throw new Error('I crashed!!!');
   }
   return (
-    <button className="boundary-button" onClick={handleClick}>
+    <button className={`${theme} boundary-button`} onClick={handleClick}>
       Error Boundary Test
     </button>
   );

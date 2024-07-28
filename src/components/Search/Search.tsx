@@ -1,14 +1,17 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import styles from './Search.module.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
+import ThemeContext from '../../context/themeContext';
 
 interface SearchProps {
   setLocalSearch: (search: string) => void;
 }
+
 function Search({ setLocalSearch }: SearchProps) {
   const [search, setSearch] = useLocalStorage('search');
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
 
   const handleClick = () => {
     if (search) {
@@ -31,7 +34,7 @@ function Search({ setLocalSearch }: SearchProps) {
         value={search}
         onChange={handleChange}
       />
-      <button className={styles.search_button} onClick={handleClick}>
+      <button className={`${styles[theme]} ${styles.search_button}`} onClick={handleClick}>
         Search
       </button>
     </div>

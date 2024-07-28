@@ -16,11 +16,21 @@
 
 .search_button {
   background-color: #4a148c;
-  border: #4a148c;
+  border: 1px solid #4a148c;
   color: #fff;
   min-width: 200px;
 }
 
+.light.search_button {
+  background-color: #f0f0f0;
+  border: 1px solid #000;
+  color: #000;
+}
+
 .search_button:hover {
   background-color: #7b1fa2;
+}
+
+.light.search_button:hover {
+  background-color: #fff;
 }

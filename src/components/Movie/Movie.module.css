@@ -9,14 +9,26 @@
   padding-bottom: 10px;
 }
 
+.light.movie_card {
+  background-color: #3d3d3d;
+}
+
 .movie_title {
   margin-bottom: 2px;
   font-weight: bold;
 }
 
+.light.movie_title {
+  color: #fff;
+}
+
 .movie_year {
   margin-top: 0;
   font-style: italic;
+}
+
+.light.movie_year {
+  color: #fff;
 }
 
 .movie_info {
@@ -35,6 +47,10 @@
 
 .movie_link {
   margin-left: 5px;
+}
+
+.light.movie_link {
+  color: #fff;
 }
 
 .movie_link:hover {
