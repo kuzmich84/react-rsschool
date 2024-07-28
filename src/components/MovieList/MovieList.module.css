@@ -1,0 +1,11 @@
+.movie_list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 20px;
+  justify-content: center;
+}
+
+.light h2 {
+  color: #000;
+}
