@@ -15,11 +15,14 @@ import { selectSelectedMovies } from '../redux/slices/selectMoviesSlice';
 
 export default function HomePage() {
   const { pageId = 1 } = useParams();
+
   const { data, isLoading, error } = moviesApi.useGetMoviesQuery({
-    search: 'movie',
+    search: localStorage.getItem('search') || 'movie',
     page: +pageId,
   });
+
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(fetchMovies(data?.Search));
   }, [data]);
@@ -33,6 +36,7 @@ export default function HomePage() {
   };
 
   const [movies, setMovies] = useState(initState);
+
   const countPage = Math.ceil(data?.totalResults / 10);
 
   const setPage = (page: number) => {
@@ -40,7 +44,7 @@ export default function HomePage() {
   };
 
   const setSearch = (search: string) => {
-    setMovies({ ...movies, localSearch: search });
+    setMovies({ ...movies, localSearch: search, currentPage: 1 });
   };
 
   const pages: number[] = [];
