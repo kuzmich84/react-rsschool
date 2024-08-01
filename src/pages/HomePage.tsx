@@ -5,7 +5,6 @@ import Header from '../components/Header/Header';
 import Search from '../components/Search/Search';
 import Preloader from '../components/Preloader/Preloader';
 import MovieList from '../components/MovieList/MovieList';
-import { useParams } from 'react-router-dom';
 import Pagination from '../components/ui/Pagination';
 import CardDetail from '../components/CardDetail/CardDetail';
 import { moviesApi } from '../services/movies';
@@ -13,14 +12,17 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 import { fetchMovies } from '../redux/slices/moviesSlice';
 import FlyOut from '../components/FlyOut/FlyOut';
 import { selectSelectedMovies } from '../redux/slices/selectMoviesSlice';
-import { useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function HomePage() {
-  const { pageId = 1 } = useParams();
+  const params = useParams();
+  const router = useRouter();
+  const pathName = usePathname();
+  const pageId = JSON.stringify(params) === '{}' ? 1 : params?.slug[1];
 
   const { data, isLoading, error } = moviesApi.useGetMoviesQuery({
     search: localStorage.getItem('search') || 'movie',
-    page: +pageId,
+    page: +pageId!,
   });
   const dispatch = useAppDispatch();
 
@@ -65,7 +67,7 @@ export default function HomePage() {
           )}
           <div
             className={searchParams?.get('details') ? 'active-card' : ''}
-            onClick={() => setSearchParams({ details: '' })}
+            onClick={() => router.push(`${pathName}`)}
           ></div>
           {selectedMovies.length ? <FlyOut count={selectedMovies.length} /> : null}
         </div>

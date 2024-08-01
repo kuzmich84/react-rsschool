@@ -35,8 +35,6 @@ export default function CardDetail() {
   const [card, setCard] = useState<CardDetailState>(initialState);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(pathName);
-
   useEffect(() => {
     fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${detailId}&plot=full`)
       .then((res) => res.json())
@@ -47,8 +45,7 @@ export default function CardDetail() {
   }, [detailId]);
 
   const handlerClick = () => {
-    setSearchParams({ details: '' });
-    router.push();
+    router.push(`${pathName}`);
   };
 
   return (

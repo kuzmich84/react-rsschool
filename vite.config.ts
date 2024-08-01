@@ -9,9 +9,17 @@ export default defineConfig({
     setupFiles: './tests/setup.ts',
     coverage: {
       provider: 'v8',
-      exclude: ['./src/main.tsx', './vite.config.ts', './.eslintrc.cjs'],
+      exclude: [
+        './src/main.tsx',
+        './vite.config.ts',
+        './.eslintrc.cjs',
+        '**/node_modules/**',
+        './next.config.mjs',
+        '**/dist/**',
+        '**/mocks/**',
+        '**/utils/**',
+      ],
     },
   },
   plugins: [react()],
-  base: './',
 });
