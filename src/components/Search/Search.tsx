@@ -1,8 +1,8 @@
 import { ChangeEvent, useContext } from 'react';
 import styles from './Search.module.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { useNavigate } from 'react-router-dom';
 import ThemeContext from '../../context/themeContext';
+import { useRouter } from 'next/navigation';
 
 interface SearchProps {
   setLocalSearch: (search: string) => void;
@@ -10,16 +10,16 @@ interface SearchProps {
 
 function Search({ setLocalSearch }: SearchProps) {
   const [search, setSearch] = useLocalStorage('search');
-  const navigate = useNavigate();
+  const router = useRouter();
   const { theme } = useContext(ThemeContext);
 
   const handleClick = () => {
     if (search) {
       setLocalSearch(search);
-      navigate('/page/1');
+      router.push('/page/1');
     } else {
       setLocalSearch('movie');
-      navigate('/page/1');
+      router.push('/page/1');
     }
   };
 

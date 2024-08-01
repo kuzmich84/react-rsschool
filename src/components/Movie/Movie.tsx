@@ -1,9 +1,10 @@
-import { Link, useLocation } from 'react-router-dom';
 import styles from './Movie.module.css';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { addMovie, deleteMovie } from '../../redux/slices/selectMoviesSlice';
 import { useContext } from 'react';
 import ThemeContext from '../../context/themeContext';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export interface MovieProps {
   imdbID: string;
@@ -17,7 +18,7 @@ export interface MovieProps {
 function Movie(props: MovieProps) {
   const { Title, Poster, imdbID, Year, isChecked } = props;
 
-  const location = useLocation();
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { theme } = useContext(ThemeContext);
 
@@ -42,11 +43,16 @@ function Movie(props: MovieProps) {
       <div className={styles.movie_footer}>
         <Link
           className={`${styles[theme]} ${styles.movie_link}`}
-          to={`${location.pathname}?details=${imdbID}`}
+          href={`${pathname}?details=${imdbID}`}
         >
           Show card
         </Link>
-        <input type="checkbox" onChange={handleChange} checked={isChecked} />
+        <input
+          className={styles.input}
+          type="checkbox"
+          onChange={handleChange}
+          checked={isChecked}
+        />
       </div>
     </li>
   );

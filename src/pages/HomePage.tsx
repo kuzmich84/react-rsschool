@@ -1,10 +1,11 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { createPagesPagination } from '../utils/pagesPaginationCreator';
 import Header from '../components/Header/Header';
 import Search from '../components/Search/Search';
 import Preloader from '../components/Preloader/Preloader';
 import MovieList from '../components/MovieList/MovieList';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Pagination from '../components/ui/Pagination';
 import CardDetail from '../components/CardDetail/CardDetail';
 import { moviesApi } from '../services/movies';
@@ -12,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 import { fetchMovies } from '../redux/slices/moviesSlice';
 import FlyOut from '../components/FlyOut/FlyOut';
 import { selectSelectedMovies } from '../redux/slices/selectMoviesSlice';
+import { useSearchParams } from 'next/navigation';
 
 export default function HomePage() {
   const { pageId = 1 } = useParams();
@@ -20,14 +22,13 @@ export default function HomePage() {
     search: localStorage.getItem('search') || 'movie',
     page: +pageId,
   });
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchMovies(data?.Search));
   }, [data]);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   const initState = {
     localSearch: localStorage.getItem('search') || 'movie',
@@ -37,8 +38,6 @@ export default function HomePage() {
 
   const [movies, setMovies] = useState(initState);
 
-  const countPage = Math.ceil(data?.totalResults / 10);
-
   const setPage = (page: number) => {
     setMovies({ ...movies, currentPage: page });
   };
@@ -47,6 +46,7 @@ export default function HomePage() {
     setMovies({ ...movies, localSearch: search, currentPage: 1 });
   };
 
+  const countPage = Math.ceil(data?.totalResults / 10);
   const pages: number[] = [];
   createPagesPagination(pages, countPage, movies.currentPage);
 
@@ -64,12 +64,12 @@ export default function HomePage() {
             <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
           )}
           <div
-            className={searchParams.get('details') ? 'active-card' : ''}
+            className={searchParams?.get('details') ? 'active-card' : ''}
             onClick={() => setSearchParams({ details: '' })}
           ></div>
           {selectedMovies.length ? <FlyOut count={selectedMovies.length} /> : null}
         </div>
-        {searchParams.get('details') && <CardDetail />}
+        {searchParams?.get('details') && <CardDetail />}
       </div>
     </div>
   );

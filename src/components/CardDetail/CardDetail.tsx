@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import styles from './CardDetail.module.css';
 import Button from '../ui/Button';
 import Preloader from '../Preloader/Preloader';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 const API_KEY = '61ba9e64';
 interface CardDetailState {
@@ -28,10 +28,14 @@ const initialState = {
 };
 
 export default function CardDetail() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const detailId = searchParams.get('details');
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathName = usePathname();
+  const detailId = searchParams?.get('details');
   const [card, setCard] = useState<CardDetailState>(initialState);
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log(pathName);
 
   useEffect(() => {
     fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${detailId}&plot=full`)
@@ -44,6 +48,7 @@ export default function CardDetail() {
 
   const handlerClick = () => {
     setSearchParams({ details: '' });
+    router.push();
   };
 
   return (

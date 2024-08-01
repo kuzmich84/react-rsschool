@@ -62,7 +62,7 @@
   justify-content: space-between;
 }
 
-input {
+.input {
   width: 40px;
   cursor: pointer;
 }
