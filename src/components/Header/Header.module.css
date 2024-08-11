@@ -1,0 +1,13 @@
+.header_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dark.header_content h1 {
+  color: #fff;
+}
+
+.light.header_content h1 {
+  color: #000;
+}
