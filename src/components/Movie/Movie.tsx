@@ -1,3 +1,4 @@
+'use client';
 import styles from './Movie.module.css';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { addMovie, deleteMovie } from '../../redux/slices/selectMoviesSlice';

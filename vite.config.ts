@@ -11,6 +11,8 @@ export default defineConfig({
       provider: 'v8',
       exclude: [
         './src/main.tsx',
+        './src/app/**',
+        './src/services/movies.ts',
         './vite.config.ts',
         './.eslintrc.cjs',
         '**/node_modules/**',

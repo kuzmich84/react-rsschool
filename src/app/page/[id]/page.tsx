@@ -1,5 +1,6 @@
-import { ClientOnly } from './client';
-import '../../index.css';
+import HomePage from '../../../pages/HomePage';
+import StoreProvider from '../../StoreProvider';
+import '../../../index.css';
 
 const API_KEY = '61ba9e64';
 
@@ -15,6 +16,19 @@ export async function generateStaticParams() {
   return [{ slug: [''] }, ...pageCountSlug];
 }
 
-export default function HomePage() {
-  return <ClientOnly />;
+type PageParams = {
+  id: string;
+};
+
+type PageProps = {
+  params: PageParams;
+};
+
+export default function Page(props: PageProps) {
+  const { id } = props.params;
+  return (
+    <StoreProvider>
+      <HomePage id={id} />
+    </StoreProvider>
+  );
 }

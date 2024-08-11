@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import styles from './CardDetail.module.css';
 import Button from '../ui/Button';

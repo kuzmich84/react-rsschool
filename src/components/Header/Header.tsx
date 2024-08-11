@@ -1,3 +1,4 @@
+'use client';
 import { useContext } from 'react';
 import BoundaryButtonTest from '../ui/BoundaryButtonTest';
 import styles from './Header.module.css';

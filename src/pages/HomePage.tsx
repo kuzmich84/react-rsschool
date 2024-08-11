@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { createPagesPagination } from '../utils/pagesPaginationCreator';
 import Header from '../components/Header/Header';
 import Search from '../components/Search/Search';
@@ -12,16 +12,27 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 import { fetchMovies } from '../redux/slices/moviesSlice';
 import FlyOut from '../components/FlyOut/FlyOut';
 import { selectSelectedMovies } from '../redux/slices/selectMoviesSlice';
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import ThemeContext from '../context/themeContext';
 
-export default function HomePage() {
-  const params = useParams();
+export type PropsHomePage = {
+  id: string;
+};
+
+export default function HomePage(props: PropsHomePage) {
   const router = useRouter();
   const pathName = usePathname();
-  const pageId = JSON.stringify(params) === '{}' ? 1 : params?.slug[1];
+  const { theme } = useContext(ThemeContext);
+  const { id } = props;
+  const pageId = id === undefined ? 1 : id;
+  let searchStorage: string;
+
+  if (typeof window !== 'undefined') {
+    searchStorage = localStorage.getItem('search') || 'movie';
+  }
 
   const { data, isLoading, error } = moviesApi.useGetMoviesQuery({
-    search: localStorage.getItem('search') || 'movie',
+    search: searchStorage!,
     page: +pageId!,
   });
   const dispatch = useAppDispatch();
@@ -33,7 +44,7 @@ export default function HomePage() {
   const searchParams = useSearchParams();
 
   const initState = {
-    localSearch: localStorage.getItem('search') || 'movie',
+    localSearch: searchStorage!,
     currentPage: +pageId! || 1,
     totalResult: 0,
   };
@@ -55,23 +66,25 @@ export default function HomePage() {
   const selectedMovies = useAppSelector(selectSelectedMovies);
 
   return (
-    <div className="container">
-      <Header />
-      <Search setLocalSearch={setSearch} />
+    <div className={`${theme} app`}>
+      <div className="container">
+        <Header />
+        <Search setLocalSearch={setSearch} />
 
-      <div className="main-content">
-        <div className="movie-content">
-          {error ? <p>Oh no, there was an error</p> : isLoading ? <Preloader /> : <MovieList />}
-          {!isLoading && (
-            <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
-          )}
-          <div
-            className={searchParams?.get('details') ? 'active-card' : ''}
-            onClick={() => router.push(`${pathName}`)}
-          ></div>
-          {selectedMovies.length ? <FlyOut count={selectedMovies.length} /> : null}
+        <div className="main-content">
+          <div className="movie-content">
+            {error ? <p>Oh no, there was an error</p> : isLoading ? <Preloader /> : <MovieList />}
+            {!isLoading && (
+              <Pagination pages={pages} currentPage={movies.currentPage} setPage={setPage} />
+            )}
+            <div
+              className={searchParams?.get('details') ? 'active-card' : ''}
+              onClick={() => router.push(`${pathName}`)}
+            ></div>
+            {selectedMovies.length ? <FlyOut count={selectedMovies.length} /> : null}
+          </div>
+          {searchParams?.get('details') && <CardDetail />}
         </div>
-        {searchParams?.get('details') && <CardDetail />}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+'use client';
 import { useContext } from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { selectMovies } from '../../redux/slices/moviesSlice';

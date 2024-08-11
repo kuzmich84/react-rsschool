@@ -1,3 +1,4 @@
+'use client';
 import { ChangeEvent, useContext } from 'react';
 import styles from './Search.module.css';
 import useLocalStorage from '../../hooks/useLocalStorage';

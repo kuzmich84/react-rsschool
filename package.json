@@ -12,7 +12,7 @@
     "format:fix": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "vitest",
+    "test": "vitest run --coverage",
     "coverage": "vitest run --coverage",
     "prepush-test": "vitest --run"
   },

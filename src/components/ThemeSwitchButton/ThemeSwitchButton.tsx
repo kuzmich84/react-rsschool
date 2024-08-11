@@ -1,3 +1,4 @@
+'use client';
 import { useContext, useEffect } from 'react';
 import styles from './ThemeSwitchButton.module.css';
 import ThemeContext, { Theme } from '../../context/themeContext';
