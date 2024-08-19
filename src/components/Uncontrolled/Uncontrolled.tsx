@@ -3,7 +3,7 @@ import { convertToBase64 } from '../../utils/convertToBase64';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { object, string, number, ref, mixed } from 'yup';
+import { object, string, number, ref } from 'yup';
 
 export interface UserValidate {
   name?: string;
@@ -17,13 +17,7 @@ export interface UserValidate {
   picture?: string;
 }
 
-// const validFileExtensions = { image: ['png', 'jpeg'] };
-
-// function isValidFileType(fileName, fileType) {
-//   return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
-// }
-
-const userSchema = object({
+export const userSchema = object({
   name: string().required('Name is Required'),
   age: number().required('Age is Required').positive('Age must be a positive number'),
   email: string().email('Invalid email format').required('Email is Required'),
@@ -39,7 +33,6 @@ const userSchema = object({
     .required('Confirm password is required'),
   gender: string().required('Gender is reqiured'),
   tc: string().required('Terms and Conditions is required'),
-  picture: mixed().required('Required'),
   country: string().required('Country is required'),
 });
 
@@ -65,13 +58,13 @@ export default function Uncontrolled() {
     const formData = new FormData(formRef.current!);
 
     const userData = Object.fromEntries(formData);
+
     try {
-      await userSchema.validate({ ...userData, picture }, { abortEarly: false });
+      await userSchema.validate(userData, { abortEarly: false });
       dispatch(addUser({ ...userData, picture }));
       navigate('/');
     } catch (err) {
       const newError = {};
-
       err.inner.forEach((item: { message: string; path: string | number }) => {
         newError[item.path] = item.message;
       });
@@ -133,11 +126,11 @@ export default function Uncontrolled() {
         <div className="error-content">{errors.tc && <div className="error">{errors.tc}</div>}</div>
 
         <label htmlFor="picture">Upload picture:</label>
-        <input type="file" id="picture" onChange={uploadImage} />
+        <input type="file" id="picture" onChange={uploadImage} name="picture" />
         <div className="error-content">
           {errors.picture && <div className="error">{errors.picture}</div>}
         </div>
-        <label htmlFor="">Country:</label>
+        <label htmlFor="country">Country:</label>
         <input type="text" name="country" />
         <div className="error-content">
           {errors.country && <div className="error">{errors.country}</div>}

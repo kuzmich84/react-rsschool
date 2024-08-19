@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
+import userReactHookFormReducer from './slices/userReactHookFormSlice';
 
 const rootReducer = combineReducers({
   user: userReducer,
+  userReactHookForm: userReactHookFormReducer,
 });
 
 export const store = configureStore({

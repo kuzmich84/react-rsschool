@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import UncontrolledCard from '../components/Uncontrolled/UncontrolledCard';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/slices/userSlice';
+import ReactHookFormCard from '../components/ReactHoookForm/ReactHookFormCard';
 
 export default function HomePage() {
   const userUnControlled = useSelector(selectUser);
@@ -20,7 +21,7 @@ export default function HomePage() {
 
       <div className="data">
         {userUnControlled ? <UncontrolledCard /> : null}
-        <div className="reactHookForm"></div>
+        <ReactHookFormCard />
       </div>
     </div>
   );
