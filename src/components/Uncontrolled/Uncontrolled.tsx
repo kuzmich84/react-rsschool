@@ -3,7 +3,7 @@ import { convertToBase64 } from '../../utils/convertToBase64';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { object, string, number, ref } from 'yup';
+import { object, string, number, ref, mixed } from 'yup';
 
 export interface UserValidate {
   name?: string;
@@ -34,6 +34,22 @@ export const userSchema = object({
   gender: string().required('Gender is reqiured'),
   tc: string().required('Terms and Conditions is required'),
   country: string().required('Country is required'),
+  picture: mixed()
+    .test('required', 'You need to provide a file', (value) => {
+      return value && value.length;
+    })
+    .test('fileSize', 'The file is too large. Max allowed size is 200KB ', (value) => {
+      return value && value[0] && value[0].size <= 200000;
+    })
+    .test('type', 'We only support jpeg or png', (value) => {
+      if (value && value[0] && value[0].type === 'image/jpeg') {
+        return true;
+      }
+      if (value && value[0] && value[0].type === 'image/png') {
+        return true;
+      }
+      return false;
+    }),
 });
 
 export default function Uncontrolled() {
@@ -43,12 +59,14 @@ export default function Uncontrolled() {
   const [errors, setErrors] = useState<UserValidate>({});
 
   let picture: unknown;
+  let file: File;
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
     }
-    const file = e.target.files[0];
+    file = e.target.files[0];
+
     picture = await convertToBase64(file);
   };
 
@@ -60,12 +78,12 @@ export default function Uncontrolled() {
     const userData = Object.fromEntries(formData);
 
     try {
-      await userSchema.validate(userData, { abortEarly: false });
+      await userSchema.validate({ ...userData, picture: [file] }, { abortEarly: false });
       dispatch(addUser({ ...userData, picture }));
       navigate('/');
-    } catch (err) {
-      const newError = {};
-      err.inner?.forEach((item: { message: string; path: string | number }) => {
+    } catch (err: unknown) {
+      const newError: UserValidate = {};
+      err.inner.forEach((item: { message: string; path: string }) => {
         newError[item.path] = item.message;
       });
 

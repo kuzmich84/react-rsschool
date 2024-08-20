@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ReactHoookForm() {
   const resolver = useYupValidationResolver(userSchema);
+
   const dispatch = useDispatch();
   const {
     register,
@@ -85,12 +86,12 @@ export default function ReactHoookForm() {
         <label htmlFor="picture">Upload picture:</label>
         <input id="picture" {...register('picture')} type="file" />
         <div className="error-content">
-          {errors.picture && <div className="error">{errors.picture?.message}</div>}
+          <div className="error">{errors.picture?.message}</div>
         </div>
-        <label htmlFor="cou">Country:</label>
+        <label htmlFor="country">Country:</label>
         <input {...register('country')} />
         <div className="error-content">
-          {errors.country && <div className="error">{errors.country?.message}</div>}
+          <div className="error">{errors.country?.message}</div>
         </div>
         <button className="btn-submit" type="submit">
           Submit
