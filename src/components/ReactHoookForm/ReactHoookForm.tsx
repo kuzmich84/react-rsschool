@@ -15,7 +15,7 @@ export default function ReactHoookForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>({ resolver });
+  } = useForm<User>({ resolver, defaultValues: { tc: '' } });
 
   const navigate = useNavigate();
 
