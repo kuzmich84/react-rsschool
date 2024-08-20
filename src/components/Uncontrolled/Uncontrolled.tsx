@@ -65,7 +65,7 @@ export default function Uncontrolled() {
       navigate('/');
     } catch (err) {
       const newError = {};
-      err.inner.forEach((item: { message: string; path: string | number }) => {
+      err.inner?.forEach((item: { message: string; path: string | number }) => {
         newError[item.path] = item.message;
       });
 

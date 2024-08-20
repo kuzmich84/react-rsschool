@@ -3,10 +3,11 @@ import UncontrolledCard from '../components/Uncontrolled/UncontrolledCard';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/slices/userSlice';
 import ReactHookFormCard from '../components/ReactHoookForm/ReactHookFormCard';
+import { selectReactHookFormUser } from '../redux/slices/userReactHookFormSlice';
 
 export default function HomePage() {
   const userUnControlled = useSelector(selectUser);
-  console.log(userUnControlled);
+  const userReactHookForm = useSelector(selectReactHookFormUser);
 
   return (
     <div className="container">
@@ -20,8 +21,8 @@ export default function HomePage() {
       </div>
 
       <div className="data">
-        {userUnControlled ? <UncontrolledCard /> : null}
-        <ReactHookFormCard />
+        {Object.keys(userUnControlled).length !== 0 ? <UncontrolledCard /> : null}
+        {Object.keys(userReactHookForm).length !== 0 ? <ReactHookFormCard /> : null}
       </div>
     </div>
   );

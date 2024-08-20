@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { userSchema } from '../Uncontrolled/Uncontrolled';
 import { useYupValidationResolver } from '../../hooks/useYupValidationResolver';
 import { User } from '../../redux/slices/userSlice';

@@ -6,7 +6,7 @@ export default function ReactHookFormCard() {
   const { name, age, email, gender, country, picture } = user;
   return (
     <div>
-      <h2>ReactHookFormData</h2>
+      <h2>ReactHookData</h2>
       <div className="content-card">
         <p>Name: {name}</p>
         <p>Age: {age}</p>
